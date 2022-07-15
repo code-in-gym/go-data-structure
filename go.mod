@@ -1,4 +1,4 @@
-module go-data-structure
+module github.com/code-in-gym/go-data-structure
 
 go 1.18
 
