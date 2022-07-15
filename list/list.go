@@ -4,32 +4,37 @@ import (
 	"fmt"
 )
 
+// Node of list
 type Node[V any] struct {
 	Value      V
 	Prev, Next *Node[V]
 }
 
-// Double linked list
+// List is double linked list
 type List[V any] struct {
 	length int
 
 	Head, Tail *Node[V]
 }
 
+// Len returns length of List
 func (l *List[V]) Len() int {
 	return l.length
 }
 
+// New retruns a new an empty list
 func New[V any]() *List[V] {
 	return &List[V]{}
 }
 
+// PushHead push value of element into the head of list
 func (l *List[V]) PushHead(v V) {
 	l.PushHeadNode(&Node[V]{
 		Value: v,
 	})
 }
 
+// PushHeadNode push element into the head of list
 func (l *List[V]) PushHeadNode(n *Node[V]) {
 	defer func() {
 		l.length++
@@ -44,12 +49,14 @@ func (l *List[V]) PushHeadNode(n *Node[V]) {
 	l.Head = n
 }
 
+// PushTail push value of element into the tail of list
 func (l *List[V]) PushTail(v V) {
 	l.PushTailNode(&Node[V]{
 		Value: v,
 	})
 }
 
+// PushTailNode push element into the tail of list
 func (l *List[V]) PushTailNode(n *Node[V]) {
 	defer func() {
 		l.length++
@@ -64,6 +71,7 @@ func (l *List[V]) PushTailNode(n *Node[V]) {
 	l.Tail = n
 }
 
+// Range will handle each node after n with fn
 func (n *Node[V]) Range(fn func(val V)) {
 	node := n
 	for node != nil {
@@ -72,6 +80,7 @@ func (n *Node[V]) Range(fn func(val V)) {
 	}
 }
 
+// Range will handle each node before n with fn
 func (n *Node[V]) ReverseRange(fn func(val V)) {
 	node := n
 	for node != nil {
@@ -80,6 +89,7 @@ func (n *Node[V]) ReverseRange(fn func(val V)) {
 	}
 }
 
+// Remove a node in list
 func (l *List[V]) Remove(n *Node[V]) {
 	defer func() {
 		l.length--
@@ -99,6 +109,8 @@ func (l *List[V]) Remove(n *Node[V]) {
 	n.Prev.Next = n.Next
 }
 
+// String returns a string with all the message of list,
+// you can print it out to know all about the list.
 func (l *List[V]) String() (str string) {
 	if l == nil {
 		return
