@@ -20,10 +20,8 @@ func (l *List[V]) Len() int {
 	return l.length
 }
 
-func New[V any](head *Node[V]) *List[V] {
-	return &List[V]{
-		length: 0,
-	}
+func New[V any]() *List[V] {
+	return &List[V]{}
 }
 
 func (l *List[V]) PushHead(v V) {
@@ -44,7 +42,6 @@ func (l *List[V]) PushHeadNode(n *Node[V]) {
 		l.Tail = n
 	}
 	l.Head = n
-	l.length++
 }
 
 func (l *List[V]) PushTail(v V) {
