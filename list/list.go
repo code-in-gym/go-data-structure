@@ -71,8 +71,8 @@ func (l *List[V]) PushTailNode(n *Node[V]) {
 	l.Tail = n
 }
 
-// Range will handle each node after n with fn
-func (n *Node[V]) Range(fn func(val V)) {
+// Each calls `fn` on each Node from n onward in the list
+func (n *Node[V]) Each(fn func(val V)) {
 	node := n
 	for node != nil {
 		fn(node.Value)
@@ -80,8 +80,8 @@ func (n *Node[V]) Range(fn func(val V)) {
 	}
 }
 
-// Range will handle each node before n with fn
-func (n *Node[V]) ReverseRange(fn func(val V)) {
+// ReverseEach calls `fn` on each Node from n backward in the list
+func (n *Node[V]) ReverseEach(fn func(val V)) {
 	node := n
 	for node != nil {
 		fn(node.Value)
@@ -89,7 +89,7 @@ func (n *Node[V]) ReverseRange(fn func(val V)) {
 	}
 }
 
-// Remove a node in list
+// Remove n form l
 func (l *List[V]) Remove(n *Node[V]) {
 	defer func() {
 		l.length--
@@ -115,7 +115,7 @@ func (l *List[V]) String() (str string) {
 	if l == nil {
 		return
 	}
-	l.Head.Range(func(val V) {
+	l.Head.Each(func(val V) {
 		str += fmt.Sprintf(" %v <=>", val)
 	})
 	str += fmt.Sprintf(" length: %d", l.length)

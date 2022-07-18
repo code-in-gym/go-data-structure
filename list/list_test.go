@@ -12,6 +12,7 @@ const (
 	_two   = 2
 	_three = 3
 	_four  = 4
+	str = ` 0 <=> 1 <=> 2 <=> 3 <=> length: 4`
 )
 
 func TestNewAList(t *testing.T) {
@@ -59,12 +60,12 @@ func mockPushTail(t *testing.T, testCase *List[int]) (*List[int], int) {
 	return testCase, _four
 }
 
-func TestRange(t *testing.T) {
+func TestEach(t *testing.T) {
 	l := mockAList(t)
 	l, length := mockPushTail(t, l)
 	listNums := make([]int, length)
 	i := 0
-	l.Head.Range(func(val int) {
+	l.Head.Each(func(val int) {
 		listNums[i] = val
 		i++
 	})
@@ -75,12 +76,12 @@ func TestRange(t *testing.T) {
 	)
 }
 
-func TestReverseRange(t *testing.T) {
+func TestReverseEach(t *testing.T) {
 	l := mockAList(t)
 	l, length := mockPushTail(t, l)
 	listNums := make([]int, length)
 	i := 0
-	l.Tail.ReverseRange(func(val int) {
+	l.Tail.ReverseEach(func(val int) {
 		listNums[i] = val
 		i++
 	})
@@ -126,7 +127,6 @@ func TestString(t *testing.T) {
 	t.Run("String list not nil", func(t *testing.T) {
 		l := mockAList(t)
 		l, _ = mockPushTail(t, l)
-		const str = ` 0 <=> 1 <=> 2 <=> 3 <=> length: 4`
 		assert.Equal(t, str, l.String())
 	})
 
