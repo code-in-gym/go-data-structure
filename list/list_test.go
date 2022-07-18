@@ -12,7 +12,7 @@ const (
 	_two   = 2
 	_three = 3
 	_four  = 4
-	str = ` 0 <=> 1 <=> 2 <=> 3 <=> length: 4`
+	str    = ` 0 <=> 1 <=> 2 <=> 3 <=> length: 4`
 )
 
 func TestNewAList(t *testing.T) {
@@ -113,6 +113,7 @@ func TestRemove(t *testing.T) {
 		l, length := mockPushTail(t, l)
 		l.Remove(l.Tail)
 		assert.Equal(t, length-1, l.Len())
+		assert.Equal(t, _two, l.Tail.Value)
 	})
 
 	t.Run("Remove node in head", func(t *testing.T) {
@@ -120,7 +121,18 @@ func TestRemove(t *testing.T) {
 		l, length := mockPushTail(t, l)
 		l.Remove(l.Head)
 		assert.Equal(t, length-1, l.Len())
+		assert.Equal(t, _one, l.Head.Value)
 	})
+
+	t.Run(
+		"Remove node in head with one element",
+		func(t *testing.T) {
+			l := mockAList(t)
+			l.PushHead(1)
+			assert.Equal(t, 1, l.Len())
+			l.Remove(l.Head)
+			assert.Equal(t, 0, l.Len())
+		})
 }
 
 func TestString(t *testing.T) {

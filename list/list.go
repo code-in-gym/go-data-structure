@@ -89,19 +89,23 @@ func (n *Node[V]) ReverseEach(fn func(val V)) {
 	}
 }
 
-// Remove n form l
+// Remove n form list
 func (l *List[V]) Remove(n *Node[V]) {
 	defer func() {
 		l.length--
 	}()
 	// 1. n in head
 	if n.Prev == nil {
-		n.Next.Prev = nil
+		if n.Next != nil {
+			n.Next.Prev = nil
+		}
+		l.Head = n.Next
 		return
 	}
 	// 2. n in tail
 	if n.Next == nil {
 		n.Prev.Next = nil
+		l.Tail = n.Prev
 		return
 	}
 	// 3. n in the middle of list
