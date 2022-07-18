@@ -11,7 +11,7 @@ Implment usual data structure by Golang.
 
 ## List
 
-- [ ] [Queue](./queue/queue.go)
+- [X] [Queue](./queue/queue.go) FIFO queue without capacity
 
 - [X] [List (ListNode)](./list/list.go) Double linked list
 
@@ -23,3 +23,6 @@ Implment usual data structure by Golang.
 
 - [ ] Set
 
+## License
+
+GPL-3.0 license
