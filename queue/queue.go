@@ -19,15 +19,21 @@ func (q *Queue[E]) Add(v E) {
 }
 
 // Peek returns the value of element in the head of queue.
-func (q *Queue[E]) Peek() (v E) {
-	return q.list.Head.Value
+func (q *Queue[E]) Peek() (v E, exist bool) {
+	if q.Empty() {
+		return
+	}
+	return q.list.Head.Value, true
 }
 
 // Poll returns the value of element in the head of queue,
 // And remove this element from queue.
-func (q *Queue[E]) Poll() (v E) {
+func (q *Queue[E]) Poll() (v E, exist bool) {
+	if q.Empty() {
+		return
+	}
 	defer q.list.Remove(q.list.Head)
-	return q.list.Head.Value
+	return q.list.Head.Value, true
 }
 
 // Empty returns true if there is no element in the queue,

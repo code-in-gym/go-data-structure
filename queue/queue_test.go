@@ -6,7 +6,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const _one = 1
+const (
+	_one  = 1
+	_zero = 0
+)
 
 func TestNew(t *testing.T) {
 	t.Run("New int queue", func(t *testing.T) {
@@ -29,14 +32,25 @@ func mockAQueue(t *testing.T) *Queue[int] {
 func TestAddAndPeak(t *testing.T) {
 	q := mockAQueue(t)
 	assert.True(t, q.Empty())
+	shouldBeZero, ok := q.Peek()
+	assert.False(t, ok)
+	assert.Equal(t, _zero, shouldBeZero)
 	q.Add(_one)
-	assert.Equal(t, _one, q.Peek())
+	val, ok := q.Peek()
+	assert.True(t, ok)
+	assert.Equal(t, _one, val)
 }
 
 func TestPollAndEmpty(t *testing.T) {
 	q := mockAQueue(t)
+	assert.True(t, q.Empty())
+	shouldBeZero, ok := q.Poll()
+	assert.False(t, ok)
+	assert.Equal(t, _zero, shouldBeZero)
 	q.Add(_one)
-	assert.Equal(t, _one, q.Poll())
+	val, ok := q.Poll()
+	assert.True(t, ok)
+	assert.Equal(t, _one, val)
 	assert.True(t, q.Empty())
 }
 
@@ -64,7 +78,9 @@ func TestEach(t *testing.T) {
 		assert.ElementsMatch(t, []int{_one, 22}, tmp)
 
 		tmpAfterPoll := []int{}
-		q.Poll()
+		val, ok := q.Poll()
+		assert.True(t, ok)
+		assert.Equal(t, _one, val)
 		q.Each(func(e int) {
 			t.Log(e)
 			tmpAfterPoll = append(tmpAfterPoll, e)
