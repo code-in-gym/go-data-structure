@@ -2,6 +2,7 @@ package queue
 
 import "github.com/code-in-gym/go-data-structure/list"
 
+// Queue FIFO queue with no capacity limit
 type Queue[E any] struct {
 	list *list.List[E]
 }
@@ -18,7 +19,9 @@ func (q *Queue[E]) Add(v E) {
 	q.list.PushTail(v)
 }
 
-// Peek returns the value of element in the head of queue.
+// Peek returns the value of element in the head of queue and true,
+// if the queue is not empty.
+// Otherwise returns default value of E and false.
 func (q *Queue[E]) Peek() (v E, exist bool) {
 	if q.Empty() {
 		return
@@ -26,8 +29,10 @@ func (q *Queue[E]) Peek() (v E, exist bool) {
 	return q.list.Head.Value, true
 }
 
-// Poll returns the value of element in the head of queue,
+// Poll returns the value of element in the head of queue and true,
+// if the queue is not empty.
 // And remove this element from queue.
+// Otherwise returns default value of E and false.
 func (q *Queue[E]) Poll() (v E, exist bool) {
 	if q.Empty() {
 		return
