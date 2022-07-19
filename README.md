@@ -11,13 +11,11 @@ Implment usual data structure by Golang.
 
 ## List
 
-- [X] [Queue](./queue/queue.go) FIFO queue without capacity
+- [X] [Queue](./queue/queue.go) FIFO queue with no capacity limit
 
 - [X] [List (ListNode)](./list/list.go) Double linked list
 
-- [ ] Stack
-
-- [ ] Heap
+- [X] [Stack](./stack/stack.go)
 
 - [ ] Binary Tree
 
